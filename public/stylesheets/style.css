@@ -1,0 +1,93 @@
+
+body {
+  padding: 50px;
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+  background:#90caf9;
+}
+
+a {
+  color: #00B7FF;
+}
+p{
+    text-align: center;
+}
+input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    
+}
+
+input[type=submit]:focus {
+  background-color: green;
+  outline: 0;
+} 
+
+input[type=password], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+.formdiv {
+    border-radius: 10px;
+    background-color: #f2f2f2;
+    padding: 20px;
+    width: 30%;
+    align-self: center;
+}
+
+.divcenter {
+    margin: auto;
+    border: 1px solid grey;
+    padding: 10px;
+}
+
+.button {
+    background-color:white;  /* Green */
+    border: none;
+    border-radius: 8px;
+    color: white;
+    padding: 15px 32px;
+    margin-top: 10px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+}
+ 
+  button:focus {outline:0;}
+ 
+
+ .buttonlogin {background-color: #4CAF50;/* green*/ 
+   display:block;
+   margin:0 auto;
+   margin-top: 6px;
+   } 
+
+.buttonlogin:hover {
+    background-color:#98FB98;
+}
+
+.buttonregister {background-color: #f44336;/* Red */ 
+   display: inline-block;
+   } 
+
+.buttonregister:hover {
+    background-color:#FF6347;
+}
+h1
+{
+ color: whitesmoke;
+ font-family: "Comic Sans MS", cursive, sans-serif;
+ font-size: 75px;
+ margin-top: 4px;
+ text-align: center;
+}
