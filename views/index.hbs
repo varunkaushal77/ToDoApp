@@ -1,15 +1,27 @@
 <h1>{{title}}</h1>
-<div class="formdiv divcenter">
-  <form action="/test" method="post">
-    <label for="user">Username</label>
-    <input type="text" id="user" name="username" placeholder="Enter username...">
-    <label for="password">Password</label>
-    <input type="password" id="pass" name="password" placeholder="Enter password...">
-    <input type="submit" class="button buttonlogin" value="Log In"/>
+{{# if errors }}
+        <section class="errors formdiv">
+            <ul>
+                {{# each errors }}
+                    <li>{{ this.msg }}</li>
+                {{/each}}
+            </ul>
+        </section>
+    {{/if}}
+  <div class="formdiv divcenter">
+  <form action="/login" method="post">
+    <label for="user"><b>Your Username</b></label>
+    <input type="text" id="user" name="username" placeholder="Enter Username or E-mail...">
+    <label for="password"><b>Your Password</b></label>
+    <input type="password" id="pass" name="password" placeholder="Enter Password...">
+    <button type="submit" class="button buttonlogin">Log In</button>
     <p>Or</p>
   </form>
-  <button class="button buttonregister" onclick="location.href='https://www.google.com'">Sign Up</button>
-</div>
+  <button type="submit" class="button buttonregister" onclick="">Sign Up</button>
+  <button class="button buttonfacebook" onclick="location.href='https://www.google.com'">Facebook</button>
+  <button class="button buttongoogle" onclick="location.href='https://www.google.com'">Google+</button>
+  </div>
+
 
 
 

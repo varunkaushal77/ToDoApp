@@ -2,7 +2,7 @@
 body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  background:#90caf9;
+  background:	#4c68d7;
 }
 
 a {
@@ -13,23 +13,17 @@ p{
 }
 input[type=text], select {
     width: 100%;
-    padding: 12px 20px;
+    padding: 12px 10px;
     margin: 8px 0;
     display: inline-block;
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
-    
 }
-
-input[type=submit]:focus {
-  background-color: green;
-  outline: 0;
-} 
 
 input[type=password], select {
     width: 100%;
-    padding: 12px 20px;
+    padding: 12px 10px;
     margin: 8px 0;
     display: inline-block;
     border: 1px solid #ccc;
@@ -80,14 +74,54 @@ input[type=password], select {
    display: inline-block;
    } 
 
+.buttonfacebook {background-color: #3b5998;/* bluefacbook */ 
+   display: inline-block;
+   padding: 15px 25px;
+   }
+
+.buttonfacebook:hover {
+    background-color:#8b9dc3;
+}
+
+.buttongoogle {background-color: #d34836;/* redgoogle */ 
+   display: inline-block;
+   }
+
+.buttongoogle:hover {
+    background-color:#FF6347;
+}
 .buttonregister:hover {
     background-color:#FF6347;
 }
+
 h1
 {
  color: whitesmoke;
- font-family: "Comic Sans MS", cursive, sans-serif;
- font-size: 75px;
+ font-family: "Lucida Grande", Helvetica, Arial, sans-serif;
+ font-size: 65px;
  margin-top: 4px;
  text-align: center;
 }
+
+.errors {
+  background: #e79892;
+  padding: 5px;
+  margin-bottom: 10px;
+  min-width: 200px;
+  display: inline-block;
+  border: 1px solid #e74c3c;
+  text-align: center;
+  margin-block-end: 200px;
+}
+
+.errors ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.success {
+  background: #80cca0;
+  padding: 5px;
+}
+
