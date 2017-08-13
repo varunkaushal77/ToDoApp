@@ -1,15 +1,13 @@
 <h1>{{title}}</h1>
-{{# if errors }}
-        <section class="errors formdiv">
-            <ul>
-                {{# each errors }}
-                    <li>{{ this.msg }}</li>
-                {{/each}}
-            </ul>
-        </section>
-    {{/if}}
-  <div class="formdiv divcenter">
-  <form action="/login" method="post">
+
+   <!-- show any messages that come back with authentication -->
+   {{#if message }}
+   <div class="formdiv divcenter">
+   <div class="errors" id="errinner">
+   <strong> {{message}}</strong>
+   </div>
+   </br>
+   <form action="/login" method="post">
     <label for="user"><b>Your Username</b></label>
     <input type="text" id="user" name="username" placeholder="Enter Username or E-mail...">
     <label for="password"><b>Your Password</b></label>
@@ -17,12 +15,25 @@
     <button type="submit" class="button buttonlogin">Log In</button>
     <p>Or</p>
   </form>
-  <button type="submit" class="button buttonregister" onclick="">Sign Up</button>
-  <button class="button buttonfacebook" onclick="location.href='https://www.google.com'">Facebook</button>
-  <button class="button buttongoogle" onclick="location.href='https://www.google.com'">Google+</button>
+  <button type="submit" class="button buttonregister" onclick="location.href='http://localhost:3003/signup'">Sign Up</button>
+  <button class="button buttonfacebook" onclick="location.href='http://localhost:3003/auth/facebook'">Facebook</button>
+  <button class="button buttongoogle" onclick="location.href='http://localhost:3003/auth/google'">Google+</button>
   </div>
-
-
+  {{else}}
+  <div class="formdiv divcenter">
+   <form action="/login" method="post">
+    <label for="user"><b>Your Username</b></label>
+    <input type="text" id="user" name="username" placeholder="Enter Username or E-mail...">
+    <label for="password"><b>Your Password</b></label>
+    <input type="password" id="pass" name="password" placeholder="Enter Password...">
+    <button type="submit" class="button buttonlogin">Log In</button>
+    <p>Or</p>
+    </form>
+  <button type="submit" class="button buttonregister" onclick="location.href='http://localhost:3003/signup'">Sign Up</button>
+  <button class="button buttonfacebook"  onclick="location.href='http://localhost:3003/auth/facebook'">Facebook</button>
+  <button class="button buttongoogle" onclick="location.href='http://localhost:3003/auth/google'">Google+</button>
+  </div>
+  {{/if}}
 
 
  
