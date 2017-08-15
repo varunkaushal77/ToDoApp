@@ -172,7 +172,7 @@ module.exports = function(passport) {
         // User.findOne won't fire until we have all our data back from Google
         process.nextTick(function() {
 
-            connection.query("SELECT googlename FROM `users` WHERE `googleid` = '"+profile.id+"'", function(err,rows) {
+            connection.query("SELECT googlename FROM `users` WHERE `googleid` = '"+[profile.id]+"'", function(err,rows) {
                 if (err)
                 return done(err);
                 
@@ -185,17 +185,17 @@ module.exports = function(passport) {
                     // set all of the google information in our user
                     var newUserMysql = {
                         googleid : profile.id,
-                        googlename : profile.displayName, // look at the passport user profile to see how names are returned
+                        googlename : profile.name.givenName, // look at the passport user profile to see how names are returned
                         googleemail : profile.emails[0].value,
                         googletoken : token                                      
                     };
 
                     // save the user
 
-                    connection.query("INSERT INTO users (googleid, googletoken, googlename, googleemail) values ('"+newUserMysql.googleid+"','"+newUserMysql.googletoken+"','"+newUserMysql.googlename+"','"+newUserMysql.googletoken+"')",function(err, rows) {
+                    connection.query("INSERT INTO users (googleid, googletoken, googlename, googleemail) values('"+newUserMysql.googleid+"',"+newUserMysql.googletoken+",'"+newUserMysql.googlename+"','"+ newUserMysql.googleemail+"')",function(err, rows) {
                         if(err)
                         throw err;
-                    
+                        else
                         return done(null, newUserMysql);
                     });
 
