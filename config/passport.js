@@ -1,5 +1,4 @@
-// config/passport.js
-
+// config passport.js
 // load all the things we need
 var LocalStrategy   = require('passport-local').Strategy;
 var FacebookStrategy = require('passport-facebook').Strategy;
@@ -143,7 +142,7 @@ module.exports = function(passport) {
                     };
                     
 
-                     connection.query("INSERT INTO users (facebookid, facebooktoken, facebookname, facebookemail) values ("+newUserMysql.facebookid+","+newUserMysql.facebooktoken+","+newUserMysql.facebookname+","+newUserMysql.facebookemail+")",function(err, rows) {
+                     connection.query("INSERT INTO users (facebookid, facebooktoken, facebookname, facebookemail) values ("+newUserMysql.facebookid+",'"+newUserMysql.facebooktoken+"','"+newUserMysql.facebookname+"','"+newUserMysql.facebookemail+"')",function(err, rows) {
                         if(err)
                         throw err;
                         else
@@ -192,7 +191,7 @@ module.exports = function(passport) {
 
                     // save the user
 
-                    connection.query("INSERT INTO users (googleid, googletoken, googlename, googleemail) values('"+newUserMysql.googleid+"',"+newUserMysql.googletoken+",'"+newUserMysql.googlename+"','"+ newUserMysql.googleemail+"')",function(err, rows) {
+                    connection.query("INSERT INTO users (googleid, googletoken, googlename, googleemail) values("+newUserMysql.googleid+",'"+newUserMysql.googletoken+"','"+newUserMysql.googlename+"','"+ newUserMysql.googleemail+"')",function(err, rows) {
                         if(err)
                         throw err;
                         else
