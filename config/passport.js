@@ -21,13 +21,13 @@ module.exports = function(passport) {
 
     // used to serialize the user for the session
     passport.serializeUser(function(user, done) {
-        done(null, user);
+        done(null, user.id);
     });
 
     // used to deserialize the user
     passport.deserializeUser(function(id, done) {
         connection.query("SELECT * FROM users WHERE id = ? ",[id], function(err, rows){
-            done(err, rows);
+            done(err, rows[0]);
         });
     });
 
@@ -100,7 +100,7 @@ module.exports = function(passport) {
                     return done(null, false, req.flash('loginMessage', 'Oops! Wrong password.')); // create the loginMessage and save it to session as flashdata
 
                 // all is well, return successful user
-                return done(null, rows);
+                return done(null, rows[0]);
             });
         })
     );
@@ -123,12 +123,12 @@ module.exports = function(passport) {
 
         // asynchronous
         process.nextTick(function() {
-        connection.query("SELECT * FROM `users` WHERE facebookid = '"+[profile.id]+"'", function(err,rows) {
+        connection.query("SELECT * FROM `users` WHERE facebookid = ?",[profile.id], function(err,rows) {
                 if (err)
                 return done(err);
                 
                 if(rows.length)
-                return done(null,rows);
+                return done(null,rows[0]);
                 
                 else {
                     // if there is no user with that username
@@ -141,11 +141,9 @@ module.exports = function(passport) {
                         facebooktoken: token                                      
                     };
                     
-
-                     connection.query("INSERT INTO users (facebookid, facebooktoken, facebookname, facebookemail) values ("+newUserMysql.facebookid+",'"+newUserMysql.facebooktoken+"','"+newUserMysql.facebookname+"','"+newUserMysql.facebookemail+"')",function(err, rows) {
-                        if(err)
-                        throw err;
-                        else
+                     var insertQuery = "INSERT INTO users (facebookid, facebooktoken, facebookname, facebookemail) values (?,?,?,?) ";
+                     connection.query(insertQuery,[newUserMysql.facebookid, newUserMysql.facebooktoken, newUserMysql.facebookname, newUserMysql.facebookemail],function(err, rows) {
+                        newUserMysql.id=rows.insertId;
                         return done(null, newUserMysql);
                     });
 
@@ -171,30 +169,29 @@ module.exports = function(passport) {
         // User.findOne won't fire until we have all our data back from Google
         process.nextTick(function() {
 
-            connection.query("SELECT googlename FROM `users` WHERE `googleid` = '"+[profile.id]+"'", function(err,rows) {
+            connection.query("SELECT * FROM `users` WHERE `googleid` = ?",[profile.id], function(err,rows) {
                 if (err)
                 return done(err);
                 
                 if(rows.length)
-                return done(null,rows[0]);
-                
+                {return done(null,rows[0]);}
+            
                 else {
                     // if there is no user with that username
                     // create the user
                     // set all of the google information in our user
                     var newUserMysql = {
-                        googleid : profile.id,
-                        googlename : profile.name.givenName, // look at the passport user profile to see how names are returned
-                        googleemail : profile.emails[0].value,
-                        googletoken : token                                      
+                        googleid: profile.id,
+                        googlename: profile.displayName, // look at the passport user profile to see how names are returned
+                        googleemail: profile.emails[0].value,
+                        googletoken: token                                    
                     };
 
                     // save the user
+                    var insertQuery = "INSERT INTO users (googleid, googletoken, googlename, googleemail) values (?,?,?,?) ";
 
-                    connection.query("INSERT INTO users (googleid, googletoken, googlename, googleemail) values("+newUserMysql.googleid+",'"+newUserMysql.googletoken+"','"+newUserMysql.googlename+"','"+ newUserMysql.googleemail+"')",function(err, rows) {
-                        if(err)
-                        throw err;
-                        else
+                    connection.query(insertQuery,[newUserMysql.googleid, newUserMysql.googletoken, newUserMysql.googlename, newUserMysql.googleemail],function(err, rows) {
+                        newUserMysql.id = rows.insertId;
                         return done(null, newUserMysql);
                     });
 
